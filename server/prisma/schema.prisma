@@ -1,0 +1,76 @@
+// server/prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // Make sure to set your DATABASE_URL in the .env file
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  privyId   String     @unique
+  xHandle   String?
+  createdAt DateTime   @default(now())
+  character Character?
+}
+
+model Character {
+  id            String       @id @default(uuid())
+  userId        String       @unique
+  user          User         @relation(fields: [userId], references: [privyId], onDelete: Cascade)
+  name          String       @unique
+  race          String
+  class         String
+  level         Int          @default(1)
+  xp            Int          @default(0)
+  str           Int          @default(10)
+  dex           Int          @default(10)
+  sta           Int          @default(10)
+  wis           Int          @default(10)
+  hpMax         Int          @default(100)
+  hpCurrent     Int          @default(100)
+  energy        Int          @default(50)
+  faith         Int          @default(0)
+  gold          Int          @default(0)
+  essence       Int          @default(0)
+  lastProduction DateTime    @default(now())
+  avatarUrl     String
+  buildings     Building[]
+  missions      Mission[]
+  combatLogsAttacking CombatLog[] @relation("AttackerLogs")
+  combatLogsDefending CombatLog[] @relation("DefenderLogs")
+}
+
+model Building {
+  id          String    @id @default(uuid())
+  characterId String
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  type        String    // e.g., "solar_altar", "faith_temple", "gold_mine"
+  level       Int       @default(1)
+}
+
+model Mission {
+  id          String    @id @default(uuid())
+  characterId String
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  status      String    @default("PENDING") // "PENDING", "COMPLETED"
+  rewardGold  Int
+  rewardXp    Int
+}
+
+model CombatLog {
+  id              String     @id @default(uuid())
+  attackerId      String
+  attacker        Character  @relation("AttackerLogs", fields: [attackerId], references: [id], onDelete: Cascade)
+  defenderId      String?
+  defender        Character? @relation("DefenderLogs", fields: [defenderId], references: [id], onDelete: SetNull)
+  defenderXHandle String?
+  winner          String     // "ATTACKER" or "DEFENDER" or "PENDING"
+  goldStolen      Int        @default(0)
+  logText         String
+  createdAt       DateTime   @default(now())
+}

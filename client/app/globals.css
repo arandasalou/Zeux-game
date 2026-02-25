@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  @keyframes shine {
+    from {
+      left: -100%;
+    }
+    to {
+      left: 200%;
+    }
+  }
+}

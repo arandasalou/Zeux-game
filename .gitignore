@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Next.js / Builds
+.next/
+/out/
+/build
+dist/
+client/.next/
+
+# Env & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# Prisma
+server/prisma/migrations/
+server/prisma/*.db
+server/prisma/*.db-journal
+
+# Misc
+.DS_Store
+*.log
