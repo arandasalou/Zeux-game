@@ -1,0 +1,6 @@
+DATABASE_URL="postgresql://neondb_owner:npg_bZz6rnqU4VaS@ep-misty-fire-abes1wgy-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require'"
+PRIVY_APP_ID=cmlzi5wqg000f0bjsstue5j51
+PRIVY_APP_SECRET=privy_app_secret_ZcJ5yr9byPi4BfhdAtKJWPLGvztPXjhX7GASKq3E9A5mXKt71iYfwDNDqVsLVJyrCY5BbE65TBvadeYgx4VFCA1
+GEMINI_API_KEY=AIzaSyBI0zBBMdlsCRCtI7QI8uXWpuS8CtyNGgI
+PORT=4000
+CLIENT_URL="http://localhost:3000"
